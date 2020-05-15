@@ -85,6 +85,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Kobe Bryant is the GOAT #RIP',
+    date: 'Sep 17th, 2019',
+    firstParagraph: "Kobe Bean Bryant (/ˈkoʊbiː/ KOH-bee; August 23, 1978 – January 26, 2020) was an American professional basketball player. As a shooting guard, Bryant entered the National Basketball Association (NBA) directly from high school, and played his entire 20-season professional career in the league with the Los Angeles Lakers. Bryant won many accolades: five NBA championships, 18-time All-Star, 15-time member of the All-NBA Team, 12-time member of the All-Defensive Team, 2008 NBA Most Valuable Player (MVP), two-time NBA Finals MVP winner. Widely regarded as one of the greatest players of all time, he led the NBA in scoring during two seasons, ranks fourth on the league's all-time regular season scoring and all-time postseason scoring lists",
+    secondParagraph: "Bryant was the son of former NBA player Joe Bryant. He attended Lower Merion High School in Pennsylvania, where he was recognized as the top high-school basketball player in the country. Upon graduation, he declared for the 1996 NBA draft and was selected by the Charlotte Hornets with the 13th overall pick; the Hornets then traded him to the Lakers. As a rookie, Bryant earned himself a reputation as a high-flyer and a fan favorite by winning the 1997 Slam Dunk Contest, and he was named an All-Star by his second season. Despite a feud with teammate Shaquille O'Neal, the pair led the Lakers to three consecutive NBA championships from 2000 to 2002. In 2003, Bryant was accused of sexual assault by a 19-year-old hotel clerk.[7] Criminal charges were brought and then dropped after the accuser refused to testify, with a civil suit later settled out of court. Bryant denied the assault charge, but admitted to a sexual encounter and issued a public apology.",
+    thirdParagraph: "After the Lakers lost the 2004 NBA Finals, O'Neal was traded and Bryant became the cornerstone of the Lakers. He led the NBA in scoring during the 2005–06 and 2006–07 seasons. In 2006, he scored a career-high 81 points; the second most points scored in a single game in league history, behind Wilt Chamberlain's 100-point game in 1962. Bryant led the team to two consecutive championships in 2009 and 2010, and was named NBA Finals MVP on both occasions. He continued to be among the top players in the league through 2013, when he suffered a torn Achilles tendon at age 34. Although he recovered from that injury, he suffered season-ending injuries to his knee and shoulder, respectively, in the following two seasons. Citing his physical decline, Bryant retired after the 2015–16 season."
   }
 ];
 
@@ -101,13 +108,58 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above. */
 
-  Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
+function articleMaker(information) {
+  let article = document.createElement('div');
+  article.classList.add('article');
 
-  Step 3: Don't forget to return something from your function!
+  let title = document.createElement('h2')
+  title.textContent = information.title;
+  article.appendChild(title);
 
-  Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.
+  let date = document.createElement('p');
+  date.classList.add('date');
+  date.textContent = information.date;
+  article.appendChild(date);
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-*/
+  let par1 = document.createElement('p');
+  par1.textContent = information.firstParagraph;
+  article.appendChild(par1);
+
+  let par2 = document.createElement('p');
+  par2.textContent = information.secondParagraph;
+  article.appendChild(par2);
+
+  let par3 = document.createElement('p');
+  par3.textContent = information.thirdParagraph;
+  article.appendChild(par3);
+
+  let button = document.createElement('span');
+  button.classList.add('expandButton');
+  button.textContent = 'Open';
+  /*Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.*/
+  button.addEventListener('click', (event) => {
+    article.classList.toggle('article-open');
+    if (button.textContent === 'Open') {
+      let text = 'Close';
+      button.textContent = text;
+    } else {
+      let text = 'Open';
+      button.textContent = text;
+    }
+  })
+  article.appendChild(button);
+  /*Step 3: Don't forget to return something from your function!*/
+  return article;
+}
+
+const articleContent = document.querySelector('.articles');
+
+ /*Step 4: Outside your function, loop over the data. At each iteration you'll use your component to create an article and append it to the DOM inside the 'articles' div.*/
+data.forEach((element) => {
+  articleContent.appendChild(articleMaker(element));
+});
+ 
+  /*Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.*/
+
